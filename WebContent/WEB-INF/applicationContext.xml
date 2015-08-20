@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- < This application manages the daily activities of a Teacher and a Student 
+	of a School> Copyright (C) 2012 Virtusa Corporation. This program is free 
+	software: you can redistribute it and/or modify it under the terms of the 
+	GNU General Public License as published by the Free Software Foundation, 
+	either version 3 of the License, or (at your option) any later version. This 
+	program is distributed in the hope that it will be useful, but WITHOUT ANY 
+	WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS 
+	FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. -->
+
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.springframework.org/schema/beans" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+                           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+                           http://www.springframework.org/schema/context 
+						   http://www.springframework.org/schema/context/spring-context.xsd ">
+	
+	<!-- Bean definition for Transaction manager -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<!-- Bean definition for GSON -->
+	<bean class="com.google.gson.Gson" />
+
+	<!-- @Transactional is not present on any of the component scanned by applicationContext.xml 
+		so, need of having the @Transactional annotation handling in the Application 
+		Context as of now -->
+	<!-- <tx:annotation-driven transaction-manager="transactionManager" /> -->
+
+	<!-- Added for auto-scanning of @Component -->
+	<context:component-scan base-package="com.skt.web.alpha.util" />
+	<!-- Added for auto-scanning of @Service -->
+	<context:component-scan base-package="com.skt.web.alpha.service" />
+	<!-- Added for auto-scanning of @Repository -->
+	<context:component-scan base-package="com.skt.web.alpha.dao" />
+
+	<!-- Data sources -->
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<!-- bean id="dataSourceSMS" class="org.apache.commons.dbcp.BasicDataSource" -->
+		<property name="driverClassName">
+			<value>com.mysql.jdbc.Driver</value>
+		</property>
+		<property name="url">
+			<value>jdbc:mysql://localhost:3306/alpha_db</value>
+		</property>
+		<property name="username">
+			<value>root</value>
+		</property>
+		<property name="password">
+			<value>root</value>
+		</property>
+	</bean>
+
+	<!-- session factory -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<!-- Entity classes for DB -->
+		<property name="packagesToScan">
+			<list>
+				<value>com.skt.web.alpha.model</value>
+				<!-- 
+				<value>com.skt.web.aryan.model.PushRegistration</value>
+				 -->
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+				<prop key="hibernate.max_fetch_depth">5</prop>
+				<prop key="hibernate.autocommit">true</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.jdbc.batch_size">10000</prop>
+<!-- 				<prop key="hibernate.hbm2ddl.auto">validate</prop> validate the schema, makes no changes to the database -->
+<!-- 				<prop key="hibernate.hbm2ddl.auto">update</prop>  -->
+<prop key="hibernate.hbm2ddl.auto">validate</prop> 
+
+				<!-- validate , update,create -->
+			</props>
+		</property>
+	</bean>
+
+	<!--  SERVICES -->
+	<!-- 
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	</bean>
+	 -->
+</beans>
