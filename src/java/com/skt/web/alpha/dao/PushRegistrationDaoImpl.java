@@ -101,4 +101,6 @@ public class PushRegistrationDaoImpl extends BaseDaoImpl<PushRegistration>
 		}
 		return new ArrayList<>(list);
 	}
+	
+	
 }

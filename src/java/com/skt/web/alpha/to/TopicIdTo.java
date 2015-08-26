@@ -1,6 +1,6 @@
 package com.skt.web.alpha.to;
 
-public class UserIdTo {
+public class TopicIdTo {
 
 	private int id;
 

@@ -1,5 +1,7 @@
 package com.skt.web.alpha.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -49,4 +51,17 @@ public class UserServiceImpl implements UserService {
 					"No user present for the FB_USER_ID: " + fbUserId);
 		}
 	}
+	
+	@Override
+	public List<User> getUsers(int pageSize, int page, String sidx, String sord)  throws ApplicationException{
+		
+		return userDao.getUsers(pageSize,page,sidx,sord);
+	}
+	
+	@Override
+	public int getNoOfUsers() throws ApplicationException {
+		return userDao.getNoOfRecords();
+	}
+	
+	
 }

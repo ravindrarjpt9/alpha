@@ -36,7 +36,7 @@ public class PushController {
 		try {
 			List<String> allDevices = pushRegistrationService
 					.getAllRegisteredDevice();
-			pushRegistrationService.send(allDevices, "Hello to all");
+			pushRegistrationService.send(allDevices, message);
 			data = "Message Pushed successfully.";
 			success = true;
 		} catch (Exception e) {
@@ -45,4 +45,6 @@ public class PushController {
 		}
 		return new Response(success, data);
 	}
+	
+	
 }

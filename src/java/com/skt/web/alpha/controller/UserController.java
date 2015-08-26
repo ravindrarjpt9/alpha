@@ -1,5 +1,9 @@
 package com.skt.web.alpha.controller;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,12 +14,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.android.gcm.server.Result;
+import com.skt.web.alpha.constants.UserStatus;
+import com.skt.web.alpha.dao.UserDao;
 import com.skt.web.alpha.model.User;
+import com.skt.web.alpha.service.PushRegistrationService;
 import com.skt.web.alpha.service.UserService;
 import com.skt.web.alpha.to.ErrorResponse;
 import com.skt.web.alpha.to.Response;
-import com.skt.web.alpha.to.UserIdTo;
+import com.skt.web.alpha.to.UserBlockTo;
+import com.skt.web.alpha.to.TopicIdTo;
 import com.skt.web.alpha.to.UserTo;
+import com.skt.web.alpha.to.UsersResponseTo;
 import com.skt.web.alpha.util.UserUtils;
 import com.skt.web.common.exception.ApplicationException;
 
@@ -28,6 +38,9 @@ public class UserController {
 
 	@Autowired
 	UserUtils userUtils;
+	
+	@Autowired
+	private PushRegistrationService pushRegistrationService;
 
 	@Transactional
 	@RequestMapping(value = "/updateUser", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
@@ -94,7 +107,7 @@ public class UserController {
 	@Transactional
 	@RequestMapping(value = "/likeUser", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
 	@ResponseBody
-	public Response likeUser(@RequestBody UserIdTo userIdTo) {
+	public Response likeUser(@RequestBody TopicIdTo userIdTo) {
 		boolean success = false;
 		Object data = null;
 		try {
@@ -130,7 +143,7 @@ public class UserController {
 	@Transactional
 	@RequestMapping(value = "/spamUser", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
 	@ResponseBody
-	public Response spamUser(@RequestBody UserIdTo userIdTo) {
+	public Response spamUser(@RequestBody TopicIdTo userIdTo) {
 		boolean success = false;
 		Object data = null;
 		try {
@@ -163,16 +176,30 @@ public class UserController {
 	}
 	
 	@Transactional
-	@RequestMapping(value = "/deleteUser/{userId}", method = RequestMethod.GET, consumes = "application/json", produces = "application/json")
+	@RequestMapping(value = "/blockUser", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
 	@ResponseBody
-	public Response deleteUser(@PathVariable("userId") int userId) {
+	public Response deleteUser(@RequestBody UserBlockTo userBlockTo) {
 		boolean success = false;
 		Object data = null;
 		try {
 			// Fetching user from DB
-			User user = userService.getUser(userId);
-
+			User user = userService.getUser(userBlockTo.getId());
+			// Updating user status
+			if(userBlockTo.getStatus().equalsIgnoreCase(UserStatus.BLOCKED.toString()))
+			{
+				user.setUserStatus(UserStatus.BLOCKED);
+			}else if(userBlockTo.getStatus().equalsIgnoreCase(UserStatus.DELETED.toString()))
+			{
+				user.setUserStatus(UserStatus.DELETED);
+			}
+			
+			//Updating user status
+			userService.updateUser(user);
 			// Creating userTo instance to be sent to client
+			// Sending message to user
+			Result status = pushRegistrationService.send(userBlockTo.getPushId(), userBlockTo.getMessage());
+			LOG.info("User message status :" + status.toString() + " User Name " + user.getFirstName() + " " + user.getLastName() + " fb Id " + user.getFbUserId());
+			
 			UserTo userTo = new UserTo();
 			// Setting userTo from user
 			userUtils.setUserToFromUser(userTo, user);
@@ -186,6 +213,36 @@ public class UserController {
 		return new Response(success, data);
 	}
 
+	
+	@RequestMapping(value = "/getAllUsers",method=RequestMethod.GET,produces = "application/json")         
+    public @ResponseBody  Response getAll(HttpServletRequest request){
+		UsersResponseTo<User> usersResponseTo = null;
+		boolean success = false;
+		Object data = null;
+		try
+		{
+		int rows = Integer.parseInt(request.getParameter("rows"));
+        int page = Integer.parseInt(request.getParameter("page"));
+        String sidx = request.getParameter("sidx");
+        String sord = request.getParameter("sord");
+        List<User> list = userService.getUsers(rows, page, sidx, sord);
+         usersResponseTo = new UsersResponseTo<>();
+        usersResponseTo.setRows(list);
+        int count = userService.getNoOfUsers();
+        int total = count%rows == 0 ? (int)Math.ceil(count/rows) : (int)Math.ceil(count/rows)+1;
+        usersResponseTo.setTotal(total);
+        usersResponseTo.setRecords(count);
+        usersResponseTo.setPage(page);
+        data = usersResponseTo;
+		success = true;
+		}catch(ApplicationException e)
+		{
+			data = new ErrorResponse(e.getErrorCode(), e.getMessage());
+			LOG.error("Error while getting list of users",e);
+		}
+		return new Response(success, data);
+	}
+	
 	
 	
 }

@@ -36,7 +36,7 @@ import com.skt.web.alpha.to.GroupCategoryTo;
 import com.skt.web.alpha.to.Owners;
 import com.skt.web.alpha.to.Response;
 import com.skt.web.alpha.to.TopicTo;
-import com.skt.web.alpha.to.UserIdTo;
+import com.skt.web.alpha.to.TopicIdTo;
 import com.skt.web.alpha.to.XmppChatRoomTo;
 import com.skt.web.alpha.util.TopicUtils;
 import com.skt.web.common.exception.ApplicationException;
@@ -222,11 +222,11 @@ public class TopicController {
 	@Transactional
 	@RequestMapping(value = "/likeTopic", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
 	@ResponseBody
-	public Response likeTopic(@RequestBody UserIdTo userIdTo) {
+	public Response likeTopic(@RequestBody TopicIdTo topicIdTo) {
 		boolean success = false;
 		Object data = null;
 		try {
-			int topicId = userIdTo.getId();
+			int topicId = topicIdTo.getId();
 			// Fetching the topic from DB
 			
 			Topic topic = topicService.getTopic(topicId);
@@ -259,7 +259,7 @@ public class TopicController {
 	@Transactional
 	@RequestMapping(value = "/spamTopic", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
 	@ResponseBody
-	public Response spamTopic(@RequestBody UserIdTo userIdTo) {
+	public Response spamTopic(@RequestBody TopicIdTo userIdTo) {
 		boolean success = false;
 		Object data = null;
 		try {

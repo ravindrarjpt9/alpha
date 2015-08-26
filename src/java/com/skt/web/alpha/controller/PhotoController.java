@@ -29,7 +29,7 @@ import com.skt.web.alpha.to.ErrorResponse;
 import com.skt.web.alpha.to.PhotoIdTo;
 import com.skt.web.alpha.to.PhotoTo;
 import com.skt.web.alpha.to.Response;
-import com.skt.web.alpha.to.UserIdTo;
+import com.skt.web.alpha.to.TopicIdTo;
 import com.skt.web.alpha.util.PhotoUtil;
 import com.skt.web.common.exception.ApplicationException;
 

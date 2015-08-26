@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.google.android.gcm.server.Result;
 import com.skt.web.alpha.model.PushRegistration;
+import com.skt.web.alpha.model.UserPushMessage;
 import com.skt.web.common.exception.ApplicationException;
 
 public interface PushRegistrationService {
@@ -24,4 +25,5 @@ public interface PushRegistrationService {
 
 	Result send(String receiverPushId, String message)
 			throws ApplicationException;
+	
 }

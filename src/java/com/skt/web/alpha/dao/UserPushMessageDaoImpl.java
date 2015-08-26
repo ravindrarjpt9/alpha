@@ -9,41 +9,32 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.skt.web.alpha.model.User;
+import com.skt.web.alpha.model.UserPushMessage;
 import com.skt.web.common.dao.BaseDaoImpl;
 
 @Repository
-public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
+public class UserPushMessageDaoImpl extends BaseDaoImpl<UserPushMessage> implements UserPushMessageDao {
 
-	private static int noOfRecords;
+private static int noOfRecords;
 	
 	@Autowired
 	private SessionFactory sessionFactory;
 
 	@Override
-	public User findByFbUserId(String fbUserId) {
-		Session session = this.sessionFactory.getCurrentSession();
-		Query query = session.getNamedQuery("findUserByFbUserId").setParameter(
-				"fbUserId", fbUserId);
-		return (User) query.uniqueResult();
-	}
-
-	@Override
-	public List<User> getUsers(int pageSize, int page, String sidx, String sord) {
+	public List<UserPushMessage> getUserPushMessage(int pageSize, int page,
+			String sidx, String sord, int id) {
 		Session session = this.sessionFactory.getCurrentSession();
 		Query query = session.createQuery(
-				"from User order by " + sidx + " " + sord);
+				"from UserPushMessage where uId ="+id+" order by " + sidx + " " + sord);
 		 noOfRecords = query.list().size();
 		query.setFirstResult((page - 1) * pageSize);
 		query.setMaxResults(pageSize);
-		return (List<User>) query.list();
+		return (List<UserPushMessage>) query.list();
 	}
-
-	public  int getNoOfRecords() {
+	
+	@Override
+	public int getNoOfMessages() {
+		
 		return noOfRecords;
 	}
-
-	
-	
-	
-
 }
