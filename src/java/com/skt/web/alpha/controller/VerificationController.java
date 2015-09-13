@@ -78,7 +78,7 @@ public class VerificationController {
 	public Response verify(@RequestBody VerificationTo verificationTo) {
 		boolean success = false;
 		Object data = null;
-
+		LOG.info(" Getting request from [ "+verificationTo +"]");
 		// Setting the current DateTime as userVerificationTime as soon as
 		// request is received
 		Date userVerificationTime = new Date();
@@ -99,7 +99,7 @@ public class VerificationController {
 				user = userService
 						.getUserByFbUserId(registration.getFbUserId());
 			} catch (ApplicationException e) {
-				// Do nothing as a new user will be created
+				LOG.info("Creating new user ...");
 			}
 
 			if (user != null) {
@@ -108,6 +108,7 @@ public class VerificationController {
 				// registration.setVerificationStatus(VerificationStatus.USER_ALREADY_EXISTS);
 				// registrationService.update(registration);
 				// If user already exists then, throw an exception
+				LOG.error(" User Already existds ["+user+"]");
 				throw new ApplicationException(
 						Constants.ERROR_MSG_USER_ALREADY_EXITS);
 			}
@@ -150,6 +151,7 @@ public class VerificationController {
 					// TODO Auto-persist user by
 					// registrationDao.persist(registration);
 					// if this is a new registration
+					LOG.info("Persisting user into DB ["+user+"]");
 					user = userService.createUser(user);
 
 					// Assigning the userId to registration
@@ -162,13 +164,14 @@ public class VerificationController {
 
 					// Updating registration in DB
 					registration = registrationService.update(registration);
-
+					LOG.info("Updating registration into DB ["+registration+"]");
 					// Once the user has been successfully created and
 					// registered, create the user in XMPP server also
 					verificationControllerUtils.createXmppUser(user,
 							xmppUserService);
 
 					// Creating group(s) for user based on GroupJoiningLogic
+					LOG.info("Creating groups for user based on GroupJoinLogic");
 					verificationControllerUtils.groupsJoiningLogicForUser(user);
 
 					// Update the user in DB after group creating (CollegeName,
@@ -189,6 +192,8 @@ public class VerificationController {
 					registration
 							.setVerificationStatus(VerificationStatus.EXPIRED);
 					registration.setUserVerificationTime(userVerificationTime);
+					LOG.error(Constants.ERROR_MSG_VERIFICATION_CODE_EXPIRED
+									+ registrationId);
 					throw new ApplicationException(
 							Constants.ERROR_MSG_VERIFICATION_CODE_EXPIRED
 									+ registrationId);
@@ -196,11 +201,14 @@ public class VerificationController {
 			} else {
 				registration
 						.setVerificationStatus(VerificationStatus.INVALID_CODE);
+				LOG.error(Constants.ERROR_MSG_INVALID_VERIFICATION_CODE
+						+ registrationId);
 				throw new ApplicationException(
 						Constants.ERROR_MSG_INVALID_VERIFICATION_CODE
 								+ registrationId);
 			}
 		} catch (ApplicationException e) {
+			LOG.error("Error while Verification ["+e.getMessage()+"]",e);
 			data = new ErrorResponse(e.getErrorCode(), e.getMessage());
 		}
 		return new Response(success, data);

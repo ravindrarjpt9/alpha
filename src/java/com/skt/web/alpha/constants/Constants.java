@@ -24,7 +24,7 @@ public final class Constants {
 
 	public static final int VERIFICATION_MINUTES_RANGE = 30;
 
-	public static final int MINIMUM_FRIENDS_REQUIRED = 100;
+	public static final int MINIMUM_FRIENDS_REQUIRED = 50;
 
 	public static final String ERROR_MSG_INVALID_USER = "Sorry. Minimum "
 			+ MINIMUM_FRIENDS_REQUIRED

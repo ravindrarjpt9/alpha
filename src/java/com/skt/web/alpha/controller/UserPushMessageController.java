@@ -59,7 +59,7 @@ public class UserPushMessageController {
 			data = "Message Pushed successfully.";
 			success = true;
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error("Error while send user push message ["+e.getMessage()+"]",e);
 			data = e.getMessage();
 		}
 		return new Response(success, data);

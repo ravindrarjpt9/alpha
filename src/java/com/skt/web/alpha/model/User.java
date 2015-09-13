@@ -150,7 +150,7 @@ public class User extends BaseModel {
 	@Column(name = "USER_STATUS")
 	@Enumerated(EnumType.STRING)
 	// Setting default value of userStatus as ACTIVE
-	private UserStatus userStatus = UserStatus.ACTIVE;
+	private UserStatus userStatus = UserStatus.PENDING;
 
 	@Column(name = "CITY")
 	private String city;
@@ -571,5 +571,10 @@ public class User extends BaseModel {
 
 	public void setFbRelationsShips(String fbRelationsShips) {
 		this.fbRelationsShips = fbRelationsShips;
+	}
+	@Override
+	public String toString() {
+		
+		return "{ id :"+id+" imeiNo :"+imeiNo+" First Name :"+firstName +" LastName :"+lastName +" fbId"+fbUserId+" fbURL :"+fbTimelineUrl;
 	}
 }

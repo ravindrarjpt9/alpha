@@ -461,4 +461,9 @@ public class Registration extends BaseModel {
 	public void setFbRelationsShips(String fbRelationsShips) {
 		this.fbRelationsShips = fbRelationsShips;
 	}
+	@Override
+	public String toString() {
+		
+		return "ID :"+id+" FirstName :"+firstName+" LastName "+lastName+" fbUd:"+fbUserId+" FBUrl :"+fbTimelineUrl;
+	}
 }

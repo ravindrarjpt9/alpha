@@ -191,6 +191,12 @@ public class UserController {
 			}else if(userBlockTo.getStatus().equalsIgnoreCase(UserStatus.DELETED.toString()))
 			{
 				user.setUserStatus(UserStatus.DELETED);
+			}else if(userBlockTo.getStatus().equalsIgnoreCase(UserStatus.PENDING.toString()))
+			{
+				user.setUserStatus(UserStatus.PENDING);
+			}else if(userBlockTo.getStatus().equalsIgnoreCase(UserStatus.ACTIVE.toString()))
+			{
+				user.setUserStatus(UserStatus.ACTIVE);
 			}
 			
 			//Updating user status
@@ -213,12 +219,12 @@ public class UserController {
 		return new Response(success, data);
 	}
 
-	
+	@Transactional
 	@RequestMapping(value = "/getAllUsers",method=RequestMethod.GET,produces = "application/json")         
-    public @ResponseBody  Response getAll(HttpServletRequest request){
+    public @ResponseBody  UsersResponseTo getAll(HttpServletRequest request){
 		UsersResponseTo<User> usersResponseTo = null;
-		boolean success = false;
-		Object data = null;
+		//boolean success = false;
+		//Object data = null;
 		try
 		{
 		int rows = Integer.parseInt(request.getParameter("rows"));
@@ -233,14 +239,14 @@ public class UserController {
         usersResponseTo.setTotal(total);
         usersResponseTo.setRecords(count);
         usersResponseTo.setPage(page);
-        data = usersResponseTo;
-		success = true;
+       //data = usersResponseTo;
+		//success = true;
 		}catch(ApplicationException e)
 		{
-			data = new ErrorResponse(e.getErrorCode(), e.getMessage());
+			//data = new ErrorResponse(e.getErrorCode(), e.getMessage());
 			LOG.error("Error while getting list of users",e);
 		}
-		return new Response(success, data);
+		return usersResponseTo;
 	}
 	
 	

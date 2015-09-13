@@ -30,7 +30,7 @@ public class PushRegistrationServiceImpl implements PushRegistrationService {
 
 	private Sender sender;
 	// Browser App Access Key
-	private static final String ACCESS_KEY = "AIzaSyCAoKq0qDfU8neAxcalpgtFE-2SFSoj01E";
+	private static final String ACCESS_KEY = "AIzaSyDXvCl_735hYGGKhDNiYDmK9h-jzACRuaQ";
 
 	@Autowired
 	private PushRegistrationDao pushRegistrationDao;

@@ -95,4 +95,11 @@ public class VerificationTo {
 	public void setIndustry(String industry) {
 		this.industry = industry;
 	}
+	
+	@Override
+	public String toString() {
+		
+		return "{+registrationId"+registrationId+" city "+city+" location "+location+" locality "+locality+
+				" nativeLocation "+ nativeLocation+" [ interests"+interests+" ] jobType "+ jobType+ " industry "+industry;
+	}
 }
