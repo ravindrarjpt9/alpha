@@ -30,4 +30,6 @@ public interface GroupUserService {
 
 	GroupUser findByUserIdAndGroupId(int userId, int groupId)
 			throws ApplicationException;
+
+	List<String> findAllGroupRulesListByGroupCategory(String groupCategoryName);
 }

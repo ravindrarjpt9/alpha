@@ -19,6 +19,7 @@ public class GroupUserTo {
 	private UserGroupRole userGroupRole = UserGroupRole.USER;
 
 	private Date userAddTime;
+	private String status;
 
 	public int getId() {
 		return id;
@@ -58,5 +59,13 @@ public class GroupUserTo {
 
 	public void setUserAddTime(Date userAddTime) {
 		this.userAddTime = userAddTime;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 }

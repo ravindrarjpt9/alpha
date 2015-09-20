@@ -63,5 +63,11 @@ public class UserServiceImpl implements UserService {
 		return userDao.getNoOfRecords();
 	}
 	
+	@Override
+	public void deleteUser(int userId) throws ApplicationException {
+		userDao.getDeleteUsers(userId);
+		
+	}
+	
 	
 }

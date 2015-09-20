@@ -19,5 +19,7 @@ public interface UserService {
 	
 	int getNoOfUsers() throws ApplicationException;
 	
+	void deleteUser(int userId) throws ApplicationException;
+	
 	
 }

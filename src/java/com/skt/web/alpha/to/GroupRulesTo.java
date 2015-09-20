@@ -2,11 +2,11 @@ package com.skt.web.alpha.to;
 
 import java.util.List;
 
-public class GroupCategoryTo {
+public class GroupRulesTo {
 
 	private String id;
 	private String groupCategory;
-	private List<String> topicTypeList;
+	private List<String> rulesList;
 	public String getId() {
 		return id;
 	}
@@ -19,17 +19,19 @@ public class GroupCategoryTo {
 	public void setGroupCategory(String groupCategory) {
 		this.groupCategory = groupCategory;
 	}
-	public List<String> getTopicTypeList() {
-		return topicTypeList;
+	
+	
+	public List<String> getRulesList() {
+		return rulesList;
 	}
-	public void setTopicTypeList(List<String> topicTypeList) {
-		this.topicTypeList = topicTypeList;
+	public void setRulesList(List<String> rulesList) {
+		this.rulesList = rulesList;
 	}
 	
 	@Override
 	public String toString() {
 		
-		return "{id :"+this.id+",groupCategory:"+this.groupCategory+",topicTypeList:"+this.topicTypeList +"}";
+		return "{id :"+this.id+",groupCategory:"+this.groupCategory+",rulesList:"+this.rulesList +"}";
 	}
 	
 }

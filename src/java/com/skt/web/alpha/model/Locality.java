@@ -1,5 +1,7 @@
 package com.skt.web.alpha.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,22 +33,28 @@ public class Locality extends BaseModel{
 	@Column(name="LOCATION")
 	private String location;
 
+	@Column(name="MODIFUED_BY")
+	private String modifiedBy;
+	
+	
 	public Locality() {
 		
 	}
-	public Locality(String city, String localityName, String location) {
+	public Locality(String city, String localityName, String location,String modifiedBy) {
 		
 		this.city = city;
 		this.localityName = localityName;
 		this.location = location;
+		this.modifiedBy = modifiedBy;
 	}
 	
 
-	public Locality(int id, String city, String localityName, String location) {
+	public Locality(int id, String city, String localityName, String location,String modifiedBy) {
 		this.id = id;
 		this.city = city;
 		this.localityName = localityName;
 		this.location = location;
+		this.modifiedBy = modifiedBy;
 	}
 
 
@@ -80,6 +88,13 @@ public class Locality extends BaseModel{
 
 	public void setLocation(String location) {
 		this.location = location;
+	}
+	
+	public String getModifiedBy() {
+		return modifiedBy;
+	}
+	public void setModifiedBy(String modifiedBy) {
+		this.modifiedBy = modifiedBy;
 	}
 	
 

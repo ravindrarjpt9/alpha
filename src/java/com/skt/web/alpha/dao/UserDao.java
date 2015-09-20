@@ -12,5 +12,7 @@ public interface UserDao extends BaseDao<User> {
 	List<User> getUsers(int pageSize, int page, String sidx, String sord);
 	
 	 int getNoOfRecords();
+	 
+	 void getDeleteUsers(int userId);
 
 }

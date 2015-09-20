@@ -40,7 +40,7 @@ public class LocalityController {
 	{
 		boolean success = false;
 		Object data = null;
-		LocationTo locationTo = new LocationTo();
+		//LocationTo locationTo = new LocationTo();
 		Locality locality = null;
 		try
 		{
@@ -48,17 +48,17 @@ public class LocalityController {
 				if(location.getId() != 0)
 				{
 					
-					locality = localityService.update(new Locality(location.getId(), location.getCity(), location.getLocalityName(), location.getLocation()));
+					locality = localityService.update(new Locality(location.getId(), location.getCity(), location.getLocalityName(), location.getLocation(),location.getModifiedBy()));
 				}
 				else
 					
 				{
-					locality = localityService.create(new Locality(location.getCity(), location.getLocalityName(), location.getLocation()));
+					locality = localityService.create(new Locality(location.getCity(), location.getLocalityName(), location.getLocation(),location.getModifiedBy()));
 				}
 				
 				//locationTo = locationUtil.setLocationToFromLocality(locationTo,locationTo);
 				success = true;
-				data = new LocationTo(locality.getId(), locality.getCity(), locality.getLocalityName(), locality.getLocation());
+				data = new LocationTo(locality.getId(), locality.getCity(), locality.getLocalityName(), locality.getLocation(),locality.getModifiedBy(),locality.getModifiedTime());
 			
 			
 			

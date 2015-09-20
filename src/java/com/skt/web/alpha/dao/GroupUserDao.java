@@ -18,4 +18,6 @@ public interface GroupUserDao extends BaseDao<GroupUser> {
 	List<Object[]> findAllGroupDisplayNameTosByUserId(int userId);
 
 	GroupUser findByUserIdAndGroupId(int userId, int groupId);
+
+	List<String> findAllRulesListByGroupCategory(String groupCategoryName);
 }

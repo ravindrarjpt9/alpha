@@ -128,4 +128,16 @@ public class GroupUserServiceImpl implements GroupUserService {
 			return groupUser;
 		}
 	}
+	
+	@Override
+	public List<String> findAllGroupRulesListByGroupCategory(String groupCategoryName) {
+		List<String> rulesList = groupUserDao
+				.findAllRulesListByGroupCategory(groupCategoryName);
+
+		if (rulesList.isEmpty()) {
+			rulesList = groupUserDao
+					.findAllRulesListByGroupCategory("Other");
+		} 
+		return rulesList;
+	}
 }

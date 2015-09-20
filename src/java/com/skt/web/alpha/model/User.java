@@ -150,7 +150,7 @@ public class User extends BaseModel {
 	@Column(name = "USER_STATUS")
 	@Enumerated(EnumType.STRING)
 	// Setting default value of userStatus as ACTIVE
-	private UserStatus userStatus = UserStatus.PENDING;
+	private UserStatus userStatus = UserStatus.ACTIVE;
 
 	@Column(name = "CITY")
 	private String city;

@@ -67,4 +67,11 @@ public class GroupUserDaoImpl extends BaseDaoImpl<GroupUser> implements
 				.setParameter("groupId", groupId);
 		return (GroupUser) query.uniqueResult();
 	}
+	@Override
+	public List<String> findAllRulesListByGroupCategory(String groupCategoryName) {
+		Session session = this.sessionFactory.getCurrentSession();
+		Query query = session.createSQLQuery("select RULE from rules_list where GROUP_NAME = :groupCategory")
+				.setParameter("groupCategory", groupCategoryName.trim()).setCacheable(true);
+		return (List<String>) query.list();
+	}
 }

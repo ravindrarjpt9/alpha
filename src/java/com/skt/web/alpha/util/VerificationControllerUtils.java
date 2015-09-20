@@ -216,21 +216,21 @@ public class VerificationControllerUtils {
 		}
 
 		// Group 13: City-Industry group
-		city = user.getCity();
-		String industry = user.getIndustry();
-		if (city != null && industry != null
-				&& !industry.equals(Constants.INDUSTRY)
-				&& !industry.equals(Constants.NONE_OR_OTHER)) {
-			groupName = industry + Constants.GROUP_NAME_SEPARATOR + location + Constants.IN + city;
-			displayName = industry + Constants.NEAR_BY;
-
-			// Create a group instance after persisting required entries in DB
-			String industryroupCategory = userUtils.getIndustryGroupCategory(jobType);
-			
-			fetchOrCreateGroupAndCreateGroupUser(groupName,industryroupCategory, displayName,
-					GroupIconCategory.INDUSTRY, GroupGenderCategory.UNISEX,
-					groupService, xmppChatRoomService, user, groupUserService);
-		}
+//		city = user.getCity();
+//		String industry = user.getIndustry();
+//		if (city != null && industry != null
+//				&& !industry.equals(Constants.INDUSTRY)
+//				&& !industry.equals(Constants.NONE_OR_OTHER)) {
+//			groupName = industry + Constants.GROUP_NAME_SEPARATOR + location + Constants.IN + city;
+//			displayName = industry + Constants.NEAR_BY;
+//
+//			// Create a group instance after persisting required entries in DB
+//			String industryroupCategory = userUtils.getIndustryGroupCategory(jobType);
+//			
+//			fetchOrCreateGroupAndCreateGroupUser(groupName,industryroupCategory, displayName,
+//					GroupIconCategory.INDUSTRY, GroupGenderCategory.UNISEX,
+//					groupService, xmppChatRoomService, user, groupUserService);
+//		}
 
 		// Group 14: Location-Girls-Age
 		if (location != null && !location.equals(Constants.CURRENT_LOCATION)) {

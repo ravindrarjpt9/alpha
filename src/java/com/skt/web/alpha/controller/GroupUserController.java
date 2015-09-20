@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.skt.web.alpha.constants.UserGroupRole;
 import com.skt.web.alpha.constants.UserGroupStatus;
 import com.skt.web.alpha.model.Group;
+import com.skt.web.alpha.model.User;
 import com.skt.web.alpha.service.GroupUserService;
+import com.skt.web.alpha.service.UserService;
 import com.skt.web.alpha.to.ErrorResponse;
 import com.skt.web.alpha.to.GroupDisplayNameTo;
 import com.skt.web.alpha.to.GroupUserTo;
@@ -31,6 +33,9 @@ public class GroupUserController {
 
 	@Autowired
 	GroupUserService groupUserService;
+	
+	@Autowired
+	UserService UserService;
 
 	@Transactional
 	@RequestMapping(value = "/getGroupsByUserId/{userId}", method = RequestMethod.GET, consumes = "application/json", produces = "application/json")
@@ -40,6 +45,8 @@ public class GroupUserController {
 		Object data = null;
 
 		try {
+			User user = UserService.getUser(userId);
+			if(user != null){
 			// Fetching the required data from DB as a List of Object[]
 			List<Object[]> groupUserToObjectArrays = groupUserService
 					.findAllGroupUserTosByUserId(userId);
@@ -61,6 +68,8 @@ public class GroupUserController {
 				groupUserTo
 						.setUserGroupRole((UserGroupRole) groupUserToObjectArray[3]);
 				groupUserTo.setUserAddTime((Date) groupUserToObjectArray[4]);
+				//User Status for all groups
+				groupUserTo.setStatus(user.getUserStatus().toString());
 
 				// Adding the instance of groupUserTo to groupUserTos
 				groupUserTos.add(groupUserTo);
@@ -69,6 +78,11 @@ public class GroupUserController {
 			// Returning the List of GroupUserTos
 			data = groupUserTos;
 			success = true;
+			}else
+			{
+				LOG.warn("User does not exit with this user id ["+userId+"]");
+				data = new ErrorResponse(404, "User does not exit with this user id ["+userId+"]");
+			}
 		} catch (ApplicationException e) {
 			data = new ErrorResponse(e.getErrorCode(), e.getMessage());
 		}

@@ -81,8 +81,8 @@
 				<prop key="hibernate.jdbc.batch_size">10000</prop>
 <!-- 				<prop key="hibernate.hbm2ddl.auto">validate</prop> validate the schema, makes no changes to the database -->
 <!-- 				<prop key="hibernate.hbm2ddl.auto">update</prop>  -->
-<prop key="hibernate.hbm2ddl.auto">create</prop> 
-
+<prop key="hibernate.hbm2ddl.auto">validate</prop> 
+ 
 				<!-- validate , update,create -->
 			</props>
 		</property>

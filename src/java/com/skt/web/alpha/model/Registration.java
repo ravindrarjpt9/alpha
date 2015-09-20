@@ -2,6 +2,7 @@ package com.skt.web.alpha.model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -16,6 +17,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -43,8 +47,9 @@ public class Registration extends BaseModel {
 	@JsonIgnore
 	private int id;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
 	@JoinColumn(name = "USER_ID", foreignKey = @ForeignKey(name = "FK_USERS_REGISTRATIONS"))
+	@OnDelete(action=OnDeleteAction.CASCADE)
 	// To disable getter and setter
 	@JsonIgnore
 	private User user;

@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -42,6 +43,24 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
 		return noOfRecords;
 	}
 
+	@Override
+	public void getDeleteUsers(int userId) {
+		Session session = this.sessionFactory.getCurrentSession();
+		Query groupUser = session.createSQLQuery("delete  from groups_users where id =:id ");
+		Query registrations = session.createSQLQuery("delete  from registrations where id =:id ");
+		Query users = session.createSQLQuery("delete from users where id =:id");
+		groupUser.setParameter("id", userId);
+		registrations.setParameter("id", userId);
+		users.setParameter("id", userId);
+		groupUser.executeUpdate();
+		session.flush();
+		registrations.executeUpdate();
+		session.flush() ;
+		users.executeUpdate();
+	    session.flush() ;
+	    
+		//return null;
+	}
 	
 	
 	

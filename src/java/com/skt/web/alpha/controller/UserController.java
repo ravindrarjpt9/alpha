@@ -249,6 +249,24 @@ public class UserController {
 		return usersResponseTo;
 	}
 	
+	// TODO:need to work on remove group and decreas cound from group and delete topic.
+	//@Transactional
+	@RequestMapping(value = "/deleteUser/{userId}", method = RequestMethod.GET, consumes = "application/json", produces = "application/json")
+	@ResponseBody
+	public Response getDeleteUser(@PathVariable("userId") int userId) {
+		boolean success = false;
+		Object data = null;
+		try {
+			// Fetching user from DB
+			//User user = userService.getUser(userId);
+            userService.deleteUser(userId);
+			data = "Delete successfully";
+			success = true;
+		} catch (ApplicationException e) {
+			data = new ErrorResponse(e.getErrorCode(), e.getMessage());
+		}
+		return new Response(success, data);
+	}
 	
 	
 }
