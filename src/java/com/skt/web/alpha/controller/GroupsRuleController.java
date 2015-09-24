@@ -51,4 +51,9 @@ public class GroupsRuleController {
 		return new Response(success, data);
 	}
 
+	
+	 @RequestMapping("/hi")
+	    public String greeting() {
+	        return "hello";
+	    }
 }
