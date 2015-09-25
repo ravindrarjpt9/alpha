@@ -12,6 +12,8 @@ public final class XmppConstants {
 	public static final String HTTPS_PROTOCOL_SYNTAX = "https://";
 
 	public static final String XMPP_SERVER_IP_ADDRESS = "119.9.107.53";
+	
+	public static final String XMPP_CLIENT_PORT = "5222";
 
 	public static final String COLON = ":";
 
