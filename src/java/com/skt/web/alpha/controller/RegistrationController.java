@@ -83,6 +83,7 @@ public class RegistrationController {
 				// Checking if Minimum number of friends criteria is satisfied
 				// or not
 				if (registration.getNoOfFriends() < Constants.MINIMUM_FRIENDS_REQUIRED) {
+				//if (!(registration.getNoOfFriends() != Constants.MINIMUM_FRIENDS_REQUIRED)) {
 					registration
 							.setVerificationStatus(VerificationStatus.INVALID_USER);
 					invalidUserMsg = Constants.ERROR_MSG_INVALID_USER;

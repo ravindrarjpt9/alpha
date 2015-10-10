@@ -12,7 +12,9 @@ public final class Constants {
 
 	public static final String PTOTOCOL = "http";
 	
-	public static final String HOST = "119.9.107.53:8080";
+	public static final String HOST = "app.neargroup.in";
+	
+	//public static final String HOST = "119.9.107.53:8080";
 
 	public static final String APPLICATION_NAME = "alphaserver";
 	

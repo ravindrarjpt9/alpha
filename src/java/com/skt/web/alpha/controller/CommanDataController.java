@@ -17,7 +17,8 @@ public class CommanDataController {
 		boolean success = false;
 		Object data = null;
 		
-		XmppResponseTo xmppResponseTo = new XmppResponseTo(XmppConstants.XMPP_SERVER_IP_ADDRESS, XmppConstants.XMPP_CLIENT_PORT);
+		XmppResponseTo xmppResponseTo = new XmppResponseTo(XmppConstants.XMPP_SERVER_IP_ADDRESS, XmppConstants.XMPP_CLIENT_PORT,XmppConstants.ANDROID_APP_CURRENT_VERSION,XmppConstants.IOS_APP_CURRENT_VERSION,
+				XmppConstants.IOS_FOURCE_UPDATE,XmppConstants.ANRDOID_FOURCE_UPDATE);
 		return new Response(true, xmppResponseTo);
 	}
 }

@@ -13,7 +13,7 @@
 
     <appender name="rolling-file" class="org.apache.log4j.RollingFileAppender">
     	<param name="Threshold" value="DEBUG"/>
-         <param name="file" value="${catalina.home}/logs/aryan.log"/>
+         <param name="file" value="${catalina.home}/applogs/alpha.log"/>
         <!--<param name="file" value="D:/logs/alpha.log"/> -->
         <param name="MaxFileSize" value="10MB"/>
     	<!-- Keep one backup file -->
