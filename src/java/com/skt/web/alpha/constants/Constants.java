@@ -12,7 +12,7 @@ public final class Constants {
 
 	public static final String PTOTOCOL = "http";
 	
-	public static final String HOST = "app.neargroup.in";
+	public static  String HOST = "app.neargroup.in";
 	
 	//public static final String HOST = "119.9.107.53:8080";
 
@@ -26,7 +26,9 @@ public final class Constants {
 
 	public static final int VERIFICATION_MINUTES_RANGE = 30;
 
-	public static final int MINIMUM_FRIENDS_REQUIRED = 50;
+	public static  int MINIMUM_FRIENDS_REQUIRED = 50;
+	
+	public static String ADMIN_USER_FB_ID = "935276429872137";
 
 	public static final String ERROR_MSG_INVALID_USER = "Sorry. Minimum "
 			+ MINIMUM_FRIENDS_REQUIRED

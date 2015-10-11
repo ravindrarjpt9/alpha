@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.android.gcm.server.Constants;
 import com.google.android.gcm.server.Result;
 import com.skt.web.alpha.constants.UserStatus;
 import com.skt.web.alpha.dao.UserDao;
@@ -81,6 +82,29 @@ public class UserController {
 		try {
 			// Fetching user from DB
 			User user = userService.getUser(userId);
+
+			// Creating userTo instance to be sent to client
+			UserTo userTo = new UserTo();
+			// Setting userTo from user
+			userUtils.setUserToFromUser(userTo, user);
+
+			// Returning the userTo instance
+			data = userTo;
+			success = true;
+		} catch (ApplicationException e) {
+			data = new ErrorResponse(e.getErrorCode(), e.getMessage());
+		}
+		return new Response(success, data);
+	}
+	@Transactional
+	@RequestMapping(value = "/getUser", method = RequestMethod.GET, consumes = "application/json", produces = "application/json")
+	@ResponseBody
+	public Response getAdminUserUser() {
+		boolean success = false;
+		Object data = null;
+		try {
+			// Fetching user from DB
+			User user = userService.getUserByFbUserId(com.skt.web.alpha.constants.Constants.ADMIN_USER_FB_ID);
 
 			// Creating userTo instance to be sent to client
 			UserTo userTo = new UserTo();

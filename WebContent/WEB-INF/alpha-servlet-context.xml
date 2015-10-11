@@ -30,6 +30,20 @@
 	<!-- Added for auto-scanning of @Controller -->
 	<context:component-scan base-package="com.skt.web.alpha.controller" />
 
+<bean id="InitializationController" class="com.skt.web.alpha.controller.InitializationController" 
+		init-method="initIt" destroy-method="cleanUp">
+   		
+		<property name="host" value="app.neargroup.in" />
+		<property name="minimumFriendsRequired" value="60" />
+		<property name="xmppServerIpAddress" value="live.neargroup.in" />
+		<property name="androidAppCurrentVersion" value="1.0.0" />
+		<property name="iosAppCurrentVersion" value="1.0.0" />
+		<property name="androidFourceUpdate" value="true" />
+		<property name="iosFourceUpdate" value="true" />
+		<property name="xmppClientPort" value="5222" />
+		<property name="xmppServerPortUnsecure" value="9090" />
+		<property name="adminUserFbId" value="935276429872137" />
+	</bean>
 	<!-- As @Transactional is used over Controllers only and Controllers are 
 		scanned by servlet-config.xml so, the transaction should scan for @Transacational 
 		in the Web Servlet Context -->

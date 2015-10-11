@@ -11,27 +11,27 @@ public final class XmppConstants {
 
 	public static final String HTTPS_PROTOCOL_SYNTAX = "https://";
 
-	public static final String XMPP_SERVER_IP_ADDRESS = "live.neargroup.in";
+	public static  String XMPP_SERVER_IP_ADDRESS = "live.neargroup.in";
 	
 	//public static final String XMPP_SERVER_IP_ADDRESS = "119.9.107.53";
 	
 	// application current version
-	public static final String ANDROID_APP_CURRENT_VERSION = "1.0.0";
+	public static  String ANDROID_APP_CURRENT_VERSION = "1.0.0";
 	
 	// application current version
-    public static final String IOS_APP_CURRENT_VERSION = "1.0.0";
+    public static  String IOS_APP_CURRENT_VERSION = "1.0.0";
 	
 	// is Android fource update enable
-	public static final boolean ANRDOID_FOURCE_UPDATE = true;
+	public static  boolean ANRDOID_FOURCE_UPDATE = true;
 	
 	// is IOS fource update enable
-	public static final boolean IOS_FOURCE_UPDATE = true;
+	public static  boolean IOS_FOURCE_UPDATE = true;
 		
-	public static final String XMPP_CLIENT_PORT = "5222";
+	public static  String XMPP_CLIENT_PORT = "5222";
 
 	public static final String COLON = ":";
 
-	public static final String XMPP_SERVER_PORT_UNSECURE = "9090";
+	public static  String XMPP_SERVER_PORT_UNSECURE = "9090";
 
 	public static final String XMPP_SERVER_PORT_SECURE = "9091";
 
